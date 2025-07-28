@@ -1,6 +1,6 @@
 import ClientesModel from '../Models/MD_TB_Clientes.js';
 import AccesosModel from '../Models/MD_TB_Accesos.js';
-import { Op } from 'sequelize';
+import { Op, fn, col, where } from 'sequelize';
 
 // Registrar un acceso por DNI (validación incluida)
 export const CR_Acceso_CTS = async (req, res) => {
@@ -36,30 +36,11 @@ export const CR_Acceso_CTS = async (req, res) => {
         .json({ mensaje: 'Cuota vencida. Abone para ingresar.' });
     }
 
-    // Validar si ya accedió hoy
-    const inicioHoy = new Date(
-      hoy.getFullYear(),
-      hoy.getMonth(),
-      hoy.getDate(),
-      0,
-      0,
-      0
-    );
-    const finHoy = new Date(
-      hoy.getFullYear(),
-      hoy.getMonth(),
-      hoy.getDate(),
-      23,
-      59,
-      59
-    );
-
+    // ✅ Validar si ya accedió HOY (sin importar la hora)
     const accesoHoy = await AccesosModel.findOne({
       where: {
         cliente_id: cliente.id,
-        fecha: {
-          [Op.between]: [inicioHoy, finHoy]
-        }
+        [Op.and]: [where(fn('DATE', col('fecha')), fn('CURDATE'))]
       }
     });
 
@@ -166,7 +147,6 @@ export const OBRS_Accesos_CTS = async (req, res) => {
     res.status(500).json({ mensaje: 'Error interno del servidor' });
   }
 };
-
 
 export const OBR_Acceso_CTS = async (req, res) => {
   try {
