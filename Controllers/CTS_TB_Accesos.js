@@ -66,3 +66,18 @@ export const CR_Acceso_CTS = async (req, res) => {
     res.status(500).json({ mensaje: 'Error interno del servidor' });
   }
 };
+
+// Obtener todos los accesos con info de cliente
+export const OBRS_Accesos_CTS = async (req, res) => {
+  try {
+    const accesos = await AccesosModel.findAll({
+      include: [{ model: ClientesModel }],
+      order: [['fecha', 'DESC']]
+    });
+
+    res.json(accesos);
+  } catch (error) {
+    console.error('Error al obtener accesos:', error);
+    res.status(500).json({ mensaje: 'Error interno del servidor' });
+  }
+};

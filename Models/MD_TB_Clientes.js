@@ -47,6 +47,16 @@ const ClientesModel = db.define(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: true
     },
+    pagado: {
+      type: DataTypes.ENUM('SI', 'NO'),
+      allowNull: false,
+      defaultValue: 'NO'
+    },
+    tipo_membresia: {
+      type: DataTypes.ENUM('mensual', 'quincenal', 'diaria', 'personalizada'),
+      allowNull: false,
+      defaultValue: 'mensual'
+    },
     fecha_inscripcion: {
       type: DataTypes.DATEONLY,
       allowNull: false
@@ -61,13 +71,34 @@ const ClientesModel = db.define(
     },
     fecha_alta: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-      allowNull: true
+      allowNull: true,
+      defaultValue: DataTypes.NOW
     },
     estado: {
-      type: DataTypes.ENUM('activo', 'inactivo'),
-      defaultValue: 'activo',
-      allowNull: false
+      type: DataTypes.ENUM('activo', 'inactivo', 'suspendido', 'moroso'),
+      allowNull: false,
+      defaultValue: 'activo'
+    },
+    notas: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    origen: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    notificacion_whatsapp: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    plan_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'planes_membresia',
+        key: 'id'
+      }
     },
     created_at: {
       type: DataTypes.DATE,

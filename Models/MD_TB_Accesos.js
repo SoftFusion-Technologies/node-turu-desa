@@ -27,6 +27,11 @@ const AccesosModel = db.define(
     fecha: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
+    },
+    tipo_acceso: {
+      type: DataTypes.ENUM('normal', 'invitado', 'evento', 'prueba'),
+      allowNull: false,
+      defaultValue: 'normal'
     }
   },
   {

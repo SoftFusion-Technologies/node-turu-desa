@@ -13,6 +13,7 @@ import { PORT } from './DataBase/config.js';
 import mysql from 'mysql2/promise'; // Usar mysql2 para las promesas
 
 import { login, authenticateToken } from './Security/auth.js'; // Importa las funciones del archivo auth.js
+import './Models/associations.js';
 
 // CONFIGURACION PRODUCCION
 if (process.env.NODE_ENV !== 'production') {

@@ -48,8 +48,27 @@ router.post('/usuarios', CR_Usuario_CTS);
 router.put('/usuarios/:id', UR_Usuario_CTS);
 router.delete('/usuarios/:id', ER_Usuario_CTS);
 
-import { CR_Acceso_CTS } from '../Controllers/CTS_TB_Accesos.js';
+import {
+  CR_Acceso_CTS,
+  OBRS_Accesos_CTS
+} from '../Controllers/CTS_TB_Accesos.js';
+
+router.get('/accesos', OBRS_Accesos_CTS);
 router.post('/accesos', CR_Acceso_CTS); // recibe { dni: "43849860" }
+
+import {
+  OBRS_PlanesMembresia_CTS,
+  OBR_PlanMembresia_CTS,
+  CR_PlanMembresia_CTS,
+  UPD_PlanMembresia_CTS,
+  DEL_PlanMembresia_CTS
+} from '../Controllers/CTS_TB_PlanesMembresia.js';
+
+router.get('/planes-membresia', OBRS_PlanesMembresia_CTS); // Obtener todos
+router.get('/planes-membresia/:id', OBR_PlanMembresia_CTS); // Obtener uno
+router.post('/planes-membresia', CR_PlanMembresia_CTS); // Crear nuevo
+router.put('/planes-membresia/:id', UPD_PlanMembresia_CTS); // Actualizar
+router.delete('/planes-membresia/:id', DEL_PlanMembresia_CTS); // Eliminar
 
 // Exporta el enrutador
 export default router;
