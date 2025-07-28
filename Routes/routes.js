@@ -50,11 +50,13 @@ router.delete('/usuarios/:id', ER_Usuario_CTS);
 
 import {
   CR_Acceso_CTS,
-  OBRS_Accesos_CTS
+  OBRS_Accesos_CTS,
+  OBR_Acceso_CTS
 } from '../Controllers/CTS_TB_Accesos.js';
 
 router.get('/accesos', OBRS_Accesos_CTS);
 router.post('/accesos', CR_Acceso_CTS); // recibe { dni: "43849860" }
+router.get('/accesos/:id', OBR_Acceso_CTS);
 
 import {
   OBRS_PlanesMembresia_CTS,
